@@ -21,9 +21,5 @@ public class Member {
 	private String memEmail;
 	private String memProfile;
 	
-	
-	
-	
-	
 
 }
