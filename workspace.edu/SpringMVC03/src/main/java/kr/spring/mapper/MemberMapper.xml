@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.mapper.MemberMapper">
+<!-- membermapper.java가 찾아오려면 namespace이름이랑 같아야한다. -->
+	
+	<select id="registerCheck" parameterType="String" resultType="kr.spring.entity.Member">
+			SELECT * FROM MEMBER WHERE MEMID = #{memID}
+	</select>
+	<insert id ="join" parameterType="kr.spring.entity.Member">
+		INSERT INTO MEMBER(MEMID, MEMPASSWORD,MEMNAME,MEMAGE,MEMGENDER,MEMEMAIL,MEMPROFILE) VALUES(#{memID},#{memPassword},#{memName},#{memAge},#{memGender},#{memEmail},#{memProfile})
+	</insert>
+	
+	<select id ="login" parameterType ="kr.spring.entity.Member" resultType="kr.spring.entity.Member" >
+		SElECT * FROM MEMBER WHERE MEMID=#{memID} AND MEMPASSWORD =#{memPassword}
+	</select>
+	
+	
+	
+	
+	
+</mapper>

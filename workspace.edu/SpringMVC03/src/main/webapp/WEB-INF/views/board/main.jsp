@@ -73,10 +73,7 @@
 					</tr>
 				</table>
 				</form>
-			
 			</div>
-			
-
 			<div class="panel-footer">스프링게시판-쿨쿨이</div>
 		</div>
 	</div>

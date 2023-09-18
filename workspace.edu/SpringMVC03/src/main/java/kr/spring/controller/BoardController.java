@@ -20,6 +20,7 @@ public class BoardController {
 	@Autowired // 자동으로 연결하는 거.
 	private BoardMapper mapper;// mybatis한테 JCBC를 실행하라고 요청하는 객체
 	 
+	
 	@RequestMapping("/boardMain.do")// 요청url로 들어왔을 때 아래 기능을 수행하겠다.
 	 public String home(){
 		System.out.println("게시판 페이지 이동 기능 수행"); 
