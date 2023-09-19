@@ -14,6 +14,10 @@
 		SElECT * FROM MEMBER WHERE MEMID=#{memID} AND MEMPASSWORD =#{memPassword}
 	</select>
 	
+	<update id ="update" parameterType="kr.spring.entity.Member">
+		UPDATE MEMBER SET MEMPASSWORD=#{memPassword}, MEMNAME=#{memName} , MEMAGE=#{memAge} ,MEMGENDER=#{memGender} ,MEMEMAIL=#{memEmail}  WHERE MEMID=#{memID}
+	</update>
+	
 	
 	
 	

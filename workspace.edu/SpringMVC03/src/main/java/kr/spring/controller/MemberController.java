@@ -116,6 +116,48 @@ public class MemberController {
 		}
 		
 	}
+	@RequestMapping("/updateForm.do")
+	public String updateForm() {
+		return "member/updateForm";
+	}
+	
+	@RequestMapping("/update.do")
+	public String update(Member m, RedirectAttributes rttr, HttpSession session) {
+		
+		//문제
+		//mapper의 update메서드를 통해 해당 회원의 정보를 수정하시오.
+		// 조건1 : 하나라도 입력안한 데이터가 있으면 updateForm.jsp로 다시 돌려보내면서 
+		//        updateForm.jsp에서는 "모든 내용을 입력하세요"라는 모달창을 띄우세요.
+		// 조건 2: 회원 수정에 실패 했을 때는 joinForm.jsp로 다시 돌려보내면서
+		//       joinForm.jsp에서는 "회원 수정이 실패했습니다."라는 모달창을 띄우세요.
+		// 조건 3 : 회원수정에 성공했을 떄는 index.jsp로 다시 돌려보내면서
+		//         index.jsp에서는 "회원 정보 수정에 성공했습니다."라는 모달창을 띄우세요.
+	
+		if(m.getMemID() ==null || m.getMemID().equals("")|| m.getMemPassword()==null || m.getMemPassword().equals("")||
+				m.getMemName()==null || m.getMemName().equals("")|| m.getMemAge() ==0 || m.getMemEmail() == null ||
+				m.getMemEmail().equals("")) {
+			rttr.addFlashAttribute("msgType", "실패메세지");
+			rttr.addFlashAttribute("msg", "모든 내용을 입력하세요.");
+			return "redirect:/updateForm.do";
+		}else {
+			m.setMemProfile("");
+			int cnt =mapper.update(m);
+			if(cnt ==1) {
+
+				rttr.addFlashAttribute("msgType", "성공메세지");
+				rttr.addFlashAttribute("msg", "회원 정보 수정에 성공했습니다.");
+				session.setAttribute("mvo", m);
+				return "redirect:/";
+				
+			}else {
+
+				rttr.addFlashAttribute("msgType", "실패메세지");
+				rttr.addFlashAttribute("msg", "회원 정보 수정에 실패했습니다.");
+				return "redirect:/joinForm.do";
+			}
+		}
+
+	}
 	
 	
 		

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix ="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
+ <!-- context-path값(=controller)을 내장객체 변수로 저장 -->
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +19,47 @@
 <body>
 
 
-  
 <div class="container">
   <jsp:include page="common/header.jsp"></jsp:include> <!-- include는 import랑 비슷한 것!  -->
   <h1><b>springMVC03 </b></h1>
-  <p> 김볶
-  <p style ="color: blue">저녁 뭐 드실거에욤</p>
-  <p style ="color: blue;, font-size:300px;">오늘은 PIZZA</p>
+  <div class="panel panel-default">   
+  	<div>
+  		<img style="width:100%; height:400px;" src="${contextPath}/resources/images/main.jpg">
+  	</div>
+  
+	<div class="panel-body">
+		<ul class="nav nav-tabs">
+		    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		    <li><a data-toggle="tab" href="#menu1">게시판</a></li>
+		    <li><a data-toggle="tab" href="#menu2">공지사항</a></li>
+		    <li><a data-toggle="tab" href="#menu3">menu 3</a></li>
+	    </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>게시판</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>공지사항</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+	</div>
+	
+	
+ 	<div class="panel-footer">
+   		스프링-뇽뇽이
+  	</div>
+  </div>
 </div>
 
 <!-- Modal, 회원 가입 실패시 출력 됨. -->

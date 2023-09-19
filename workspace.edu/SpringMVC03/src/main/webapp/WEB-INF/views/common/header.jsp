@@ -31,28 +31,20 @@
       <!-- mvo가 비어있을 때만  보여줌.-->
       <c:if test="${empty mvo}">
       <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-      	    <a class ="dropdown-toggle" data-toggle="dropdown" href="#">접속하기 <span class="caret"></span></a>
-      		<ul class="dropdown-menu">
-        		<li><a href="${contextPath}/loginForm.do"> 로그인 </a></li>
+    
+        		<li><a href="${contextPath}/loginForm.do"><span class="glyphicon glyphicon-globe"> 로그인</span> </a></li>
        			<li><a href="${contextPath}/joinForm.do"> 회원가입 </a></li>
-        	</ul>
-        </li>
+             
       </ul>
       </c:if>
       
        <c:if test="${not empty mvo}">
       <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-      	    <a class ="dropdown-toggle" data-toggle="dropdown" href="#">접속하기 <span class="caret"></span></a>
-      		<ul class="dropdown-menu">
-        		<li><a href="#"> 회원정보수정 </a></li>
-        		<li><a href="#"> 프로필 사진 등록 </a></li>
-        		<li><a href="${contextPath}/logout.do"> 로그아웃 </a></li>
-       			
+        		<li><a href="${contextPath}/updateForm.do"> <span class="glyphicon glyphicon-heart ">회원정보수정</span> </a></li>
+        		<li><a href="#"><span class="glyphicon glyphicon-picture">프로필사진등록 </span>  </a></li>
+        		<li><a href="${contextPath}/logout.do"> <span class="glyphicon glyphicon-log-out">로그아웃</span> </a></li>
         	</ul>
-        </li>
-      </ul>
+       
       </c:if>
       
     </div>
