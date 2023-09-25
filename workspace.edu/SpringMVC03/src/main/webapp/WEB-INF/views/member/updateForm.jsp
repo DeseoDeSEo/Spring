@@ -25,6 +25,8 @@
 				<form action="${contextPath}/update.do" method="post">
 					<input type="hidden" name="memPassword" id="memPassword" value="">
 					<input type="hidden" name="memID" id="memID" value="${mvo.memID}">
+					<input type="hidden" name="memProfile" id="memProfile" value="${mvo.memProfile}">
+					<!-- 애초에 hidden 으로 memProfile값도 같이 보냄. -->
 					<table style ="text-align:center; border: 1px solid #dddddd " class="table table-borded">
 						<tr>
 						 	<td style="width:110px; vertical-align:middle;">아이디</td>

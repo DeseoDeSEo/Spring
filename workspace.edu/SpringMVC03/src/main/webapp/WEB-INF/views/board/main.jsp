@@ -34,19 +34,21 @@
 						<!-- 비동기 방식으로 가져온 게시글을 나오게 할 부분.  -->
 						
 					</tbody>	
-					
+					<c:if test="${not empty mvo}">  <!-- 로그인을 했는지 안 했는지. -->
 					<tr>
 						<td colspan="5">
 							<button onclick="goForm()" class="btn btn-primary btn-sm"> 글쓰기 </button>
 						</td>
-					</tr>		
+					</tr>	
+					</c:if>	
 				</table>
 
 			</div>
 			
 			<!-- 글쓰기 폼 -->
 			<div class ="panel-body" id="wform" style="display:none;">
-				<form id="frm">         <!--action ="boardInsert.do" method="post"> form 태그는 동기 방식임. --> 
+				<form id="frm">        <!--action ="boardInsert.do" method="post"> form 태그는 동기 방식임. --> 
+				<input type="hidden" name="memID" value="${mvo.memID}">
 				<table class="table" >
 					<tr>
 						<td>제목</td>
@@ -60,7 +62,7 @@
 					</tr>
 					<tr>
 					     <td>작성자</td>
-						<td><input type="text"  name ="writer" class ="form-control"></td>
+						<td><input readonly="readonly" value="${mvo.memName}" type="text"  name ="writer" class ="form-control"></td>
 					</tr>
 					
 					<tr>
@@ -130,13 +132,25 @@
 			listHtml += "</textarea>";
 			 
 			//수정, 삭제 화면
-			listHtml += "<br>";
-			listHtml += "<span id='ub"+ obj.idx +"'>";
-			listHtml +="<button onclick='goUpdateForm("+obj.idx+ ")' class='btn btn-sm btn-success'>수정화면</button></span> &nbsp;" // non break space 
-			listHtml +="<button onclick='goDelete("+ obj.idx +")' class='btn btn-sm btn-warning'>삭제</button> &nbsp;"
+			//조건 문안에서 EL식을 사용하고 싶다면 문자열로 감싸줘야한다.
+			if("${mvo.memID}" == obj.memID){
+				listHtml += "<br>";
+				listHtml += "<span id='ub"+ obj.idx +"'>";
+				listHtml +="<button onclick='goUpdateForm("+obj.idx+ ")' class='btn btn-sm btn-success'>수정화면</button></span> &nbsp;" // non break space 
+				listHtml +="<button onclick='goDelete("+ obj.idx +")' class='btn btn-sm btn-warning'>삭제</button> &nbsp;"
+				listHtml += "</td>";
+				listHtml +="</tr>";
+			}else{
+				listHtml += "<br>";
+				listHtml += "<span id='ub"+ obj.idx +"'>";
+				listHtml +="<button disabled onclick='goUpdateForm("+obj.idx+ ")' class='btn btn-sm btn-success'>수정화면</button></span> &nbsp;" // non break space 
+				listHtml +="<button disabled onclick='goDelete("+ obj.idx +")' class='btn btn-sm btn-warning'>삭제</button> &nbsp;"
+				/* button에 disabled 넣으면 버튼은 나오지만 작동하지 않는다. */
+				listHtml += "</td>";
+				listHtml +="</tr>";
+			}
 			listHtml += "</td>";
 			listHtml +="</tr>";
-			
 		});
 		
 		$("#view").html(listHtml);

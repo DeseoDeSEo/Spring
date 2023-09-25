@@ -10,7 +10,7 @@
 	
 	<!-- 매개변수는 parameterType에. 그리고 똑같이 board임. -->
 	<insert id ="boardInsert" parameterType="kr.spring.entity.Board">
-		INSERT INTO BOARD(TITLE, CONTENT, WRITER) VALUES(#{title},#{content},#{writer})
+		INSERT INTO BOARD(MEMID,TITLE, CONTENT, WRITER) VALUES(#{memID},#{title},#{content},#{writer})
 	</insert>
 
 <!-- 사실 parameterType은 안 적어도 됨.( 매개변수) -->
