@@ -68,11 +68,7 @@
                 	</c:forEach>
                 
                 ]
-                
-                
-                
-                
-               	         
+               
                 </li>      
         		<li><a href="${contextPath}/updateForm.do"> <span class="glyphicon glyphicon-heart ">회원정보수정</span> </a></li>
         		<li><a href="${contextPath}/imageform.do"><span class="glyphicon glyphicon-picture">프로필사진등록 </span>  </a></li>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.mapper.BoardMapper">
+<!-- 인터페이스랑 xml이랑 같은 이름 사용하면 위의 namespace처럼 알아서 맞춰짐  -->
+	<!-- id는 메서드 명이랑 똑같이 해야 찾아갈 수 있음. boardmapper.java에서 return타입이 list이니까 그에 맞춰서
+	 resultType도 적어준다.그리고   -->
+	<select id ="getLists" resultType="kr.spring.entity.Board">
+		SELECT * FROM BOARD ORDER BY INDATE DESC
+	</select>
+	
+	<!-- 매개변수는 parameterType에. 그리고 똑같이 board임. -->
+	<insert id ="boardInsert" parameterType="kr.spring.entity.Board">
+		INSERT INTO BOARD(MEMID,TITLE, CONTENT, WRITER) VALUES(#{memID},#{title},#{content},#{writer})
+	</insert>
+
+<!-- 사실 parameterType은 안 적어도 됨.( 매개변수) -->
+  	<select id="boardContent" resultType="kr.spring.entity.Board">
+  		SELECT * FROM BOARD WHERE IDX =#{idx}
+  	</select>
+  	
+  	<delete id="boardDelete">
+  			DELETE FROM BOARD WHERE IDX= #{idx}
+  	</delete>
+  	
+  	<update id="boardUpdate" parameterType="kr.spring.entity.Board" >
+  			UPDATE BOARD SET TITLE=#{title}, CONTENT=#{content}, WRITER=#{writer} WHERE IDX=#{idx}
+  	</update>
+	<update id="boardCount"> 
+			UPDATE BOARD SET COUNT=COUNT +1 WHERE IDX=#{idx}
+	</update>
+
+
+
+</mapper>

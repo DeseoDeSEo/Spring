@@ -12,8 +12,9 @@
 		#{memID},#{memPassword},#{memName},#{memAge},#{memGender},#{memEmail},#{memProfile})
 	</insert>
 	
-	<select id ="login" parameterType ="kr.spring.entity.Member" resultType="kr.spring.entity.Member" >
-		SElECT * FROM MEMBER WHERE MEMID=#{memID} AND MEMPASSWORD =#{memPassword}
+	<select id ="login" parameterType ="kr.spring.entity.Member" resultMap="memberMap" >
+		SELECT * FROM MEMBER mem LEFT OUTER JOIN Auth auth on  <!-- MEMBER를 mem. AUTH를 auth라고 함.,  -->
+		mem.MEMID = auth.MEMID WHERE mem.MEMID=#{memID} 
 	</select>
 	
 	<update id ="update" parameterType="kr.spring.entity.Member">
@@ -27,6 +28,7 @@
 		SELECT * FROM MEMBER mem LEFT OUTER JOIN Auth auth on  <!-- MEMBER를 mem. AUTH를 auth라고 함.,  -->
 		mem.MEMID = auth.MEMID WHERE mem.MEMID=#{memID}
 	</select>
+	
 	
 	<resultMap type="kr.spring.entity.Auth" id="authMap">
 	 	<id property="no" column="no" />                    <!-- auth의 primary key  -->
@@ -50,6 +52,9 @@
 	<insert id="authInsert" parameterType="kr.spring.entity.Auth">
 		INSERT INTO AUTH(MEMID, AUTH) VALUES(#{memID}, #{auth})
 	</insert>
+	<delete id="authDelete" parameterType="String">
+		DELETE FROM AUTH WHERE MEMID = #{memID}
+	</delete>
 	
 	
 </mapper>

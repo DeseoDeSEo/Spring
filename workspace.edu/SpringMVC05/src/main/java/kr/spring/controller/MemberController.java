@@ -143,12 +143,15 @@ public class MemberController {
 		Member mvo =mapper.login(m);
 		//mvo는 실패하면 null이 들어감.
 		//mvo가 실패하지 않는다면 
-		if(mvo != null ) {
+		  // 추가 비밀번호 일치여부 체크
+		if(mvo != null && pwEncoder.matches(m.getMemPassword(), mvo.getMemPassword())  ) {
+
+				//답을 가져와서 matches가 일치한지 알려줌. true, false로 알려줌.
+				rttr.addFlashAttribute("msgType", "성공메세지");
+				rttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
+				session.setAttribute("mvo", mvo);
+				return "redirect:/";
 			
-			rttr.addFlashAttribute("msgType", "성공메세지");
-			rttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
-			session.setAttribute("mvo", mvo);
-			return "redirect:/";
 		}else {
 			rttr.addFlashAttribute("msgType", "실패메세지");
 			rttr.addFlashAttribute("msg", "로그인에 실패했습니다.");
@@ -175,18 +178,44 @@ public class MemberController {
 	
 		if(m.getMemID() ==null || m.getMemID().equals("")|| m.getMemPassword()==null || m.getMemPassword().equals("")||
 				m.getMemName()==null || m.getMemName().equals("")|| m.getMemAge() ==0 || m.getMemEmail() == null ||
-				m.getMemEmail().equals("")) {
+				m.getMemEmail().equals("") || m.getAuthList().size()==0) {
 			rttr.addFlashAttribute("msgType", "실패메세지");
 			rttr.addFlashAttribute("msg", "모든 내용을 입력하세요.");
 			return "redirect:/updateForm.do";
 		}else {
+					Member mvo = (Member)session.getAttribute("mvo");
+					m.setMemProfile(mvo.getMemProfile());
+					//비밀번호 암호화
+					String encyPw = pwEncoder.encode(mvo.getMemProfile());
+					m.setMemPassword(encyPw);
+					
+					//권한 삭제
+					mapper.authDelete(m.getMemID());
+					//권한 입력
+					List<Auth> list = m.getAuthList();
+					//권한을 여러개 선택할 수 있으니가 list로 받아옴. ?!
+					for(Auth auth : list) {
+						//Auth형태로 받아올거임.
+						if(auth.getAuth() != null) {
+							//가져온 권한 값이 있을 때만 권한테이블에 값 넣기
+							Auth saveVO = new Auth();
+							saveVO.setMemID(m.getMemID()); // 회원 아이디 넣기
+							saveVO.setAuth(auth.getAuth()); //권한 넣기
+							//권한 저장
+							mapper.authInsert(saveVO);
+						}
+					}
+					
+			
 				int cnt =mapper.update(m);
 				
 				if(cnt ==1) {
 
 				rttr.addFlashAttribute("msgType", "성공메세지");
 				rttr.addFlashAttribute("msg", "회원 정보 수정에 성공했습니다.");
-				session.setAttribute("mvo", m);
+				Member info = mapper.getMember(m.getMemID());
+				//09월 26일! m에는 부족한 정보가 있어서 info로 새롭게 객체 생성
+				session.setAttribute("mvo", info);
 				return "redirect:/";
 				
 			}else {
