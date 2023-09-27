@@ -33,10 +33,13 @@ public class MemberUserDetailsService implements UserDetailsService{
 		//Spring security 내부 보안 규정상 우리가 직접 만든 클래스 객체(VO)
 		// 그래서 바로 담을 수 없음.
 		// 내가 원하는 vo를 담을 수 있게 변환해주는 user Class가 필요함.
+		
+		//09/27 세션에 저장하면 보안에 취약하다고 생각함,
+		// 그래서 서버 자체의 보안 장소인 spring context holder에 저장함.
 		if(mvo != null) {
 			// 해당 사용자가 有
 			return new MemberUser(mvo);
-			//userdetails가 user에게 상속, user가 member에게 상속?!
+			//Spring Security Context안에 회원의 정보를 저장.
 		}else {
 			//해당 사용자가 無
 			throw new UsernameNotFoundException("user with username" + username + "does not exist.");

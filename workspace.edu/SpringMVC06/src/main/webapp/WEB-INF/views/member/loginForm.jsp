@@ -112,14 +112,15 @@
 			    }
 			   
 			if(${not empty msgType}){
-				if(${msgType eq "실패메세지"}){
+				if(${msgType eq "실패 메세지"}){
 					$("#messageType").attr("class","modal-content panel-warning");
+				}
+				if(${msgType eq "성공 메세지"}){
+					$("#messageType").attr("class","modal-content panel-success");
 				}
 				$("#myMessage").modal("show");
 			}
 		});
-		
-		
 	</script>
 
 </body>

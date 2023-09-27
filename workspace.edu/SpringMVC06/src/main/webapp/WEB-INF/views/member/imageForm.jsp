@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+	<!-- Spring Security에서 제공하는 계정정보(SecurityContext안에 계정 정보 가져오기 -->
+	<!-- 로그인 한 계정정보 memberuserdetail~에서 memberuser를 가져와서 mvo에 저장함. -->
+	<!-- 09/27수. memberuser를 의미하는 거임. 아래 내용이.  -->
+<c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
+	<!-- 권한 정보도 가져옴. -->
+<c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}" />
+	
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -23,11 +31,11 @@
 	    <div class="panel-body">
 
 		<form action="${contextPath}/imageUpdate.do?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
-		
+			<input type="hidden" name="memID" value="${mvo.member.memID}" >
 			<table style="text-align: center; border : 1px solid #dddddd" class="table table-bordered">
 				<tr>
 					<td style="width: 110px; vertical-align: middle;">아이디</td>
-					<td>${mvo.memID}</td>
+					<td>${mvo.member.memID}</td>
 				</tr>
 				
 				<tr>

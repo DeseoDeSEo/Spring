@@ -205,8 +205,6 @@ public class MemberController {
 							mapper.authInsert(saveVO);
 						}
 					}
-					
-			
 				int cnt =mapper.update(m);
 				
 				if(cnt ==1) {

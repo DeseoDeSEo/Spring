@@ -38,7 +38,8 @@ public class MemberUser extends User{
 				.collect(Collectors.toList())
 				//최종 collection리스트로 변경.
 				);
-		this.member = mvo;
+		this.member = mvo; //09/27 나머지 계정 정보를 넣기위해 만든거임.
+		
 		
 	}
 	

@@ -8,6 +8,7 @@
 	<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 	<!-- Spring Security에서 제공하는 계정정보(SecurityContext안에 계정 정보 가져오기 -->
 	<!-- 로그인 한 계정정보 memberuserdetail~에서 memberuser를 가져와서 mvo에 저장함. -->
+	<!-- 09/27수. memberuser를 의미하는 거임. 아래 내용이.  -->
 	<c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
 	<!-- 권한 정보도 가져옴. -->
 	<c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}" />
@@ -39,11 +40,9 @@
       <!-- 09/26 화요일 -->
       <!-- 인증절차를 물어보는 거임 true->로그인 안 한거임. -->
       <security:authorize access="isAnonymous()">
-      <ul class="nav navbar-nav navbar-right">
-      
+      <ul class="nav navbar-nav navbar-right">    
         		<li><a href="${contextPath}/loginForm.do"><span class="glyphicon glyphicon-globe"> 로그인</span> </a></li>
-       			<li><a href="${contextPath}/joinForm.do"> 회원가입 </a></li>
-             
+       			<li><a href="${contextPath}/joinForm.do"> 회원가입 </a></li>          
       </ul>
       </security:authorize>
       
@@ -68,6 +67,7 @@
                 	<security:authorize access="hasRole('ROLE_ADMIN')">
                 		A
                 	</security:authorize>
+                	
                 	<!-- 회원이 가진 권한의 리스트만큼 반복돌면서 꺼내기 -->
                 	<%-- <c:forEach items="${mvo.authList}" var="auth">
                 		<c:choose>
@@ -90,7 +90,8 @@
                 </li>      
         		<li><a href="${contextPath}/updateForm.do"> <span class="glyphicon glyphicon-heart ">회원정보수정</span> </a></li>
         		<li><a href="${contextPath}/imageform.do"><span class="glyphicon glyphicon-picture">프로필사진등록 </span>  </a></li>
-        		<li><a href="${contextPath}/logout.do"> <span class="glyphicon glyphicon-log-out">로그아웃</span> </a></li>
+        		<li><a href="javascript:logout()"> <span class="glyphicon glyphicon-log-out">로그아웃</span> </a></li>
+        		<!-- 자바스크립트에 로그아웃기능을 실행 시키겠다. -->
         	</ul>
        
        <!--db에는 파일이름만 저장. 실제로는 resource폴더 안에 진짜 img를 저장.  -->
@@ -99,6 +100,32 @@
     </div>
   </div>
 </nav>
+ 
+ <script type="text/javascript">
+	//CSRF 토큰 값 가져오기
+	var csrfHeaderName= "${_csrf.headerName}";
+	var csrfTokenName= "${_csrf.token}";
+	//비동기방식임.
+	function logout(){
+		$.ajax({
+			url:"${contextPath}/logout",
+			type: "post",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenName);
+			},
+			success: function(){
+				//비동기방식임.
+				location.href="${contextPath}/";
+			},
+			error: function(){
+				alert("error");
+			}
+		});
+	}
+ 
+ 
+ 
+ </script>
  
 </body>
 </html>
