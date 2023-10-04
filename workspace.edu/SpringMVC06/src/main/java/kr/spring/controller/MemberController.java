@@ -235,7 +235,7 @@ public class MemberController {
 				// 실제 Spring Security기능을 실행하는 Authentication 객체 가져오기
 				// Authentication 객체는 내가 만든 MemberUserDetailsService를 통해 Db안에 값을 넣는 일도 하지만
 				// Contextholder 속한 Context에 있는 회원의 값을 가져올 수 있다.
-				//1. 기존의 memeberUser(회원정보)를 가져옴.
+				//1. 기존의 memberUser(회원정보)를 가져옴.
 					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				//기존 Context 회원정보 가져오기
 					MemberUser userAccount = (MemberUser)authentication.getPrincipal(); //authentication.getPrincipal() : user타입으로 반환됨.
@@ -275,7 +275,7 @@ public class MemberController {
 
 
 	@RequestMapping("/imageform.do")
-	public String imageForm() {
+	public String immeageForm() {
 		
 		return"member/imageForm";
 	}

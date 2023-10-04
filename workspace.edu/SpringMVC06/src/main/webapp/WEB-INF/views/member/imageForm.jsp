@@ -10,7 +10,6 @@
 <c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
 	<!-- 권한 정보도 가져옴. -->
 <c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}" />
-	
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>

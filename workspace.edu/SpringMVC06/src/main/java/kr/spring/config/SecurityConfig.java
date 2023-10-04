@@ -33,13 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		//내가 만든 MemberUserDetailsService와 암호화 및 복호화를 해주는 패스워드 인코더를 
 		//Spring security에 등록하는 메서드.
-		auth.userDetailsService(memberUserDetailsService()).passwordEncoder(passwordEncoder());
-		
+		auth.userDetailsService(memberUserDetailsService()).passwordEncoder(passwordEncoder());	
 	}
-
-
-
-
 	//Spring Security 환경설정하는 클래스
 	//websecurity~ : 요청에 대한 보안 설정을 해주는 클래스
 	@Override

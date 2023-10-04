@@ -19,7 +19,8 @@ public class MemberUser extends User{
 	private Member member;
 	
 	public MemberUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-                                                     //  배열 형태를 받아오겠다. collection= 배열
+           
+		//  배열 형태를 받아오겠다. collection= 배열
 		// MemberUser 객체 생성시 아이디, 비밀번호, 권한을 입력받는다.
 		//실제로 우리는 이 생서자를 사용하지 않는다.
 		//추상메서드라서 어쩔 수 없이 구현함.
