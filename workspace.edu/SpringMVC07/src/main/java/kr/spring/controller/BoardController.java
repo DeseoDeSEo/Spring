@@ -21,6 +21,41 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	@GetMapping("/reply")
+	public String reply(@RequestParam("idx") int idx, Model model) {
+		Board vo = service.get(idx);
+		model.addAttribute("vo", vo);
+		return "board/reply";
+	}
+	@PostMapping("/reply")
+	public String reply(Board vo) {
+		service.reply(vo);
+		return "redirect:/board/list";
+	}
+	
+	
+	@GetMapping("/remove")
+	public String remove(@RequestParam("idx") int idx) {
+		service.remove(idx);
+		return"redirect:/board/list";
+	}
+
+	
+	@GetMapping("/modify")
+	//location.href는 get방식임.
+	public String modify(@RequestParam("idx") int idx, Model model) {
+		//model에 idx를 담아서 board/modify로 이동함.
+		Board vo = service.get(idx);
+		model.addAttribute("vo", vo);
+		return "board/modify";
+	}
+	
+	@PostMapping("/modify")
+	public String modify(Board vo) {
+		service.modify(vo);
+		return "redirect:/board/list";
+	}
+	
 	@GetMapping("/get")
 	// 게시글 상세보기
 	// 하나만 받앙올 떄는 requestparam사용. idx를 받아와서 idx안에 넣겠다.

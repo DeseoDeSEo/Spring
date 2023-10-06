@@ -16,5 +16,11 @@ public interface BoardService {
 	public void register(Board vo);
 
 	public Board get(int idx);
+
+	public void modify(Board vo);
+
+	public void remove(int idx);
+
+	public void reply(Board vo);
 	
 }
