@@ -68,17 +68,34 @@
 						<c:forEach items="${list}" var="vo" varStatus="i">
 							<tr>
 								<td>${i.count}</td>
+								<!-- 댓글 표현 하는 곳 -->
+								<!-- 10/11 삭제 글/댓글 표현 (xml에도 update로 변경함.-->
 								<td>
-								<a href="${cpath}/board/get?idx=${vo.idx}">
-								<c:if test="${vo.boardLevel > 0 }">
-									<c:forEach begin="0" end="${vo.boardLevel}" step="1">
-										<span style="padding-left:15px"></span>
-									</c:forEach>
-									ㄴ[RE]
+								<c:if test="${vo.boardAvailable ==0}">
+									<a href="javascript:alert('삭제된 게시글 입니다. ')"> 
+									<c:if test="${vo.boardLevel > 0 }">
+										<c:forEach begin="0" end="${vo.boardLevel}" step="1">
+											<span style="padding-left:15px"></span>
+										</c:forEach>
+										ㄴ[RE]
+									</c:if>
+									
+									삭제된 게시물 입니다.
+									</a>
+								</c:if>
+								<c:if test="${vo.boardAvailable > 0}">
+									<a href="${cpath}/board/get?idx=${vo.idx}">
+									<c:if test="${vo.boardLevel > 0 }">
+										<c:forEach begin="0" end="${vo.boardLevel}" step="1">
+											<span style="padding-left:15px"></span>
+										</c:forEach>
+										ㄴ[RE]
+										<!-- el(= ${vo.title} )식을 바로 사용하면 xss에 취약함. -->
+									</c:if>
+									<c:out value="${vo.title}"/>
+									</a>
 								</c:if>
 								
-								${vo.title}
-								</a>
 								</td>
 								<td>${vo.writer}</td>
 								<td>

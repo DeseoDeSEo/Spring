@@ -29,7 +29,7 @@
 						
 					<div class="form-group">
 						<label>제목</label>
-						<input value="${vo.title}" type="text" name="title" class="form-control">
+						<input value="<c:out value='${vo.title}'/>" type="text" name="title" class="form-control">
 					</div>
 					
 					<div class="form-group">
@@ -43,16 +43,36 @@
 					</div>
 					<button type="submit" class="btn btn-default btn-sm">등록</button>
 					<button type="reset"  class="btn btn-default btn-sm">취소</button>
-					<button onclick ="location.href='${cpath}/board/list'"  type="button" class="btn btn-default btn-sm">목록</button>
+					<button data-btn="list"  type="button" class="btn btn-default btn-sm">목록</button>
 					
 				</form>
+				
+				<form id="frm" method="get" action="">
+					<input id="idx" type="hidden" name="idx" value="${vo.idx}">
+				</form>
+				
+				
 			</div>
 			<div class="panel-footer">스프링게시판-뇽뇽이</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("button").on("click",function(e){ 
+			var formData=$("#frm");
+			var btn =$(this).data("btn");
+			
+			//버튼이 reply이면 action을 아래 경로로 바꿔줌.
+			if(btn=="list"){
+				formData.attr("action","${cpath}/board/list");
+				formData.find("#idx").remove();
+				//list는 idx가 필요 없으니까 찾아서 없애줌.
+			}
+			formData.submit();
+		}); //버튼 눌렀을 떄
 		
+	});
 	
 	</script>
 </body>

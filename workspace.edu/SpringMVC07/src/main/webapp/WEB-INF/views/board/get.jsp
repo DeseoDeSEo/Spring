@@ -29,12 +29,12 @@
 						</tr>
 						<tr>
 							<td>제목</td>
-							<td>${vo.title}</td>
+							<td><c:out value="${vo.title}"/></td>
 						</tr>
 						<tr>
 							<td>내용</td>
 							<td>
-								<textarea class="form-control" readonly = "readonly" rows="10" cols="">${vo.content}</textarea>
+								<textarea class="form-control" readonly = "readonly" rows="10" cols=""><c:out value="${vo.content}"/></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -45,29 +45,52 @@
 						<tr>
 							<td colspan="2" style="text-align:center;" >
 								<c:if test="${not empty mvo}">   
-									<button onclick="location.href='${cpath}/board/reply?idx=${vo.idx}'" class="btn btn-sm btn-primary">답글</button>
-									<button onclick="location.href ='${cpath}/board/modify?idx=${vo.idx}'" class="btn btn-sm btn-success">수정</button>
+									<button data-btn="reply" class="btn btn-sm btn-primary">답글</button>
+									<button data-btn="modify" class="btn btn-sm btn-success">수정</button>
 								</c:if>
-								
+								<!--  -->
 								<c:if test="${empty mvo}">   
 									<button disabled="disabled" class="btn btn-sm btn-primary">답글</button>
-									<button disabled="disabled" onclick="location.href ='${cpath}/board/modify?idx=${vo.idx}'" class="btn btn-sm btn-success">수정</button>
+									<button disabled="disabled" class="btn btn-sm btn-success">수정</button>
 								</c:if>
 								
-								
-								
-								<button onclick="location.href='${cpath}/board/list'" class="btn btn-sm btn-warning">목록</button>
-								<!-- cpath는 절대경로임. -->
+								<button data-btn="list" class="btn btn-sm btn-warning">목록</button>
 							</td>
 						</tr>
 									
 				</table>
+				<!--10/11 button에 location href없앰. -->
+				<form id="frm" method="get" action="">
+					<input id="idx" type="hidden" name="idx" value="${vo.idx}">
+				</form>
+				
 			</div>
 			<div class="panel-footer">스프링게시판-뇽뇽이</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
+		//10.11 링크처리(가독성, 보안(url노출 안됨.),유지보수 편리)//e:클릭했을 때, 요소를 감지하겠다.
+		$(document).ready(function(){
+			$("button").on("click",function(e){ 
+				var formData=$("#frm");
+				var btn =$(this).data("btn");
+				
+				//버튼이 reply이면 action을 아래 경로로 바꿔줌.
+				if(btn=="reply"){
+					formData.attr("action","${cpath}/board/reply");
+				}else if(btn=="modify"){
+					formData.attr("action","${cpath}/board/modify");
+				}else if(btn=="list"){
+					formData.attr("action","${cpath}/board/list");
+					formData.find("#idx").remove();
+					//list는 idx가 필요 없으니까 찾아서 없애줌.
+				}
+				
+				formData.submit();
+			}); //버튼 눌렀을 떄
+			
+		});
 		
 	
 	</script>
