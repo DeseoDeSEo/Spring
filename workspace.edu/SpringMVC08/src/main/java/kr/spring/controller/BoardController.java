@@ -25,28 +25,32 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("/reply")
-	public String reply(@RequestParam("idx") int idx, Model model) {
+	public String reply(@RequestParam("idx") int idx, Model model, @ModelAttribute("cri") Criteria cri) {
 		Board vo = service.get(idx);
 		model.addAttribute("vo", vo);
 		return "board/reply";
 	}
 	@PostMapping("/reply")
-	public String reply(Board vo) {
+	public String reply(Board vo,Criteria cri, RedirectAttributes rttr) {
 		service.reply(vo);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		return "redirect:/board/list";
 	}
 	
 	
 	@GetMapping("/remove")
-	public String remove(@RequestParam("idx") int idx) {
+	public String remove(@RequestParam("idx") int idx, Criteria cri, RedirectAttributes rttr) {
 		service.remove(idx);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		return"redirect:/board/list";
 	}
 
 	
 	@GetMapping("/modify")
 	//location.href는 get방식임.
-	public String modify(@RequestParam("idx") int idx, Model model) {
+	public String modify(@RequestParam("idx") int idx, Model model,  @ModelAttribute("cri") Criteria cri) {
 		//model에 idx를 담아서 board/modify로 이동함.
 		Board vo = service.get(idx);
 		model.addAttribute("vo", vo);
@@ -54,8 +58,10 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(Board vo) {
+	public String modify(Board vo, Criteria cri, RedirectAttributes rttr) {
 		service.modify(vo);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		return "redirect:/board/list";
 	}
 	
@@ -64,7 +70,7 @@ public class BoardController {
 	// 하나만 받앙올 떄는 requestparam사용. idx를 받아와서 idx안에 넣겠다.            10/12. model.addAttribute(cri)와 같은역할
 	public String get(@RequestParam("idx") int idx, Model model, @ModelAttribute("cri") Criteria cri) {
 		// 받아오는 자료는 board자료형태이고 이름은 vo이다.
-		Board vo =service.get(idx);
+		Board vo = service.get(idx);
 		model.addAttribute("vo", vo);
 		
 		

@@ -22,32 +22,31 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Board</div>
 			<div class="panel-body">
-			<!--이건 수정해서 post방식으로 보내는 거임.   -->
-				<form action="${cpath}/board/modify" method="post">   
+				<form id="frm">
 					<table class="table table-bordered table-hover">
 							<tr>
 								<td>번호</td>
-								<td><input readonly="readonly" value="${vo.idx}" name="idx" type="text" class="form-control"></td>
+								<td><input id="idx" readonly="readonly" value="${vo.idx}" name="idx" type="text" class="form-control"></td>
 							</tr>
 							<tr>
 								<td>제목</td>
-								<td><input value="<c:out value='${vo.title}'/>" name="title" type="text" class="form-control"></td>
+								<td><input id="title" value="<c:out value='${vo.title}'/>" name="title" type="text" class="form-control"></td>
 							</tr>
 							<tr>
 								<td>내용</td>
 								<td>
-									<textarea class="form-control" name="content" rows="10" cols=""><c:out value="${vo.content}"/></textarea>
+									<textarea id="content" class="form-control" name="content" rows="10" cols=""><c:out value="${vo.content}"/></textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td><input readonly="readonly" value="${vo.writer}" name="writer" type="text" class="form-control"></td>
+								<td><input id="writer" readonly="readonly" value="${vo.writer}" name="writer" type="text" class="form-control"></td>
 							</tr>
 							
 							<tr>
 								<td colspan="2" style="text-align:center;" >
 									<c:if test="${not empty mvo && mvo.memID eq vo.memID }">
-										<button type="submit" class="btn btn-sm btn-primary">수정완료</button>
+										<button data-btn="modify" type="button" class="btn btn-sm btn-primary">수정완료</button>
 										<button data-btn="remove" type="button" class="btn btn-sm btn-success">삭제</button>
 									</c:if>
 									<c:if test="${empty mvo or mvo.memID ne vo.memID }">
@@ -59,11 +58,10 @@
 								</td>
 							</tr>					
 					</table>
-				</form>
-				
-				<!--10/11 button에 location href없앰. -->
-				<form id="frm" method="get" action="">
-					<input id="idx" type="hidden" name="idx" value="${vo.idx}">
+
+					<input type="hidden" name="page" value="${cri.page}">
+					<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+					
 				</form>
 				
 				
@@ -84,9 +82,23 @@
 				formData.attr("action","${cpath}/board/list");
 				formData.find("#idx").remove();
 				//list는 idx가 필요 없으니까 찾아서 없애줌.
+				formData.attr("method","get");
+				
+				formData.find("#title").remove();
+				formData.find("#content").remove();
+				formData.find("#writer").remove();
+				
 			}else if(btn=="remove"){
 				formData.attr("action","${cpath}/board/remove");
-
+				formData.attr("method","get");
+				formData.find("#title").remove();
+				formData.find("#content").remove();
+				formData.find("#writer").remove();
+			
+				
+			}else if(btn=="modify"){
+				formData.attr("action","${cpath}/board/modify");
+				formData.attr("method","post");
 			}
 			
 			formData.submit();
