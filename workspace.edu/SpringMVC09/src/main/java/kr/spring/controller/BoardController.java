@@ -79,10 +79,7 @@ public class BoardController {
 		// 받아오는 자료는 board자료형태이고 이름은 vo이다.
 		Board vo = service.get(idx);
 		model.addAttribute("vo", vo);
-		
-		
-		
-		
+
 		return "board/get";
 	}
 	

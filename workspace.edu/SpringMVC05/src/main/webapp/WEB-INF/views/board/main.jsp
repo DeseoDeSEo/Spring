@@ -209,9 +209,7 @@
 				},
 				error:function(){alert("error");}
 			});
-			
 			$("#c"+ idx).css("display", "table-row");
-			
 			
 		}else{
 			$("#c"+ idx).css("display","none");

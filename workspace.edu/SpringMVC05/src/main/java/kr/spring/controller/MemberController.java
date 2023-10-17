@@ -95,8 +95,6 @@ public class MemberController {
 				}
 			}
 			
-
-			
 			if(cnt==1) {
 				System.out.println("회원가입 성공");
 				rttr.addFlashAttribute("msgType", "성공메세지");
