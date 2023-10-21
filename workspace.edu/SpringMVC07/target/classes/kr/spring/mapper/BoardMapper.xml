@@ -37,7 +37,7 @@
 		SET BOARDAVAILABLE=0 
 		WHERE IDX=#{idx}
 	</delete>
-
+<!--  -->
 	<update id="replySeqUpdate" parameterType="kr.spring.entity.Board">
 		UPDATE TBLBOARD
 		SET BOARDSEQUENCE = BOARDSEQUENCE +1

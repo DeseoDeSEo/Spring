@@ -36,7 +36,6 @@ public class BoardServiceImpl implements BoardService { // BoardService를 가�
 	@Override
 	public void delete(Long idx) {
 		boardRepository.deleteById(idx);
-		
 	}
 
 	@Override

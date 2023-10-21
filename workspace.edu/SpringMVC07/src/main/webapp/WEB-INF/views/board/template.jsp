@@ -22,9 +22,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Board</div>
 			<div class="panel-body">
-				
-			
-			
+
 			</div>
 			<div class="panel-footer">스프링게시판-뇽뇽이</div>
 		</div>
