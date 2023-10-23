@@ -14,14 +14,11 @@ public class Criteria { //기준이라는 뜻임.
 		this.perPageNum =5;
 		
 	}
-	
-	
 	//현재 페이지의 게시글의 시작번호를 구하는 메소드
 	// :현재 1페이지를 보고 싶으면 1부터 10까지의 게시물을 보여줌.
 	//  다음 페이지를 클릭하면 11 ~ 20까지의 게시물을 보여줌.
 	// 예외 : mysql에서는 시작값을 0으로 인식 -> 1페이지에서는 0~9임,
-	public int getPageStart() {
-		
+	public int getPageStart() {	
 		return(page-1) * perPageNum;
 	}
 }
