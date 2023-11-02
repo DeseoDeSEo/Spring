@@ -15,7 +15,7 @@ class SimkoongApplicationTests {
 	private MemberRepository memberRepository;
 	
 	@Autowired
-	private PasswordEncoder passwordEncodmr;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	
