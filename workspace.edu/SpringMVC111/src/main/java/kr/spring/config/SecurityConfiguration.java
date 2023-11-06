@@ -34,7 +34,7 @@ public class SecurityConfiguration {
 			.and() // 추가
 			.logout()
 			.logoutUrl("/member/logout") // 로그아웃 실행하고 싶다면 member/logout으로 요청하겠다.
-			.logoutSuccessUrl("/"); //로그아웃하고 /로 이동하겠다.
+			.logoutSuccessUrl("/"); //로그아웃하고 "/"로 이동하겠다.
 			
 		
 		
