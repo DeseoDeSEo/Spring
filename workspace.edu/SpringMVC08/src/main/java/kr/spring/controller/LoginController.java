@@ -30,6 +30,7 @@ public class LoginController {
 		return "redirect:/board/list";
 		
 	}
+	
 	@RequestMapping("/logoutProcess")
 	public String logout(HttpSession session) {
 		session.invalidate();
